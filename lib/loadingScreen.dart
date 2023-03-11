@@ -1,17 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import 'package:flutter/material.dart';
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({super.key});
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  @override
+  State<LoadingScreen> createState() => _LoadingScreenState();
+}
 
+class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-
-    return Scaffold(
+    
+     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -21,7 +25,7 @@ class WelcomePage extends StatelessWidget {
               height: h * 0.31,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage("images/Loadingcolour.png"),
+                image: AssetImage("images/Login.png"),
                 fit: BoxFit.cover,
               )),
               child: Column(
