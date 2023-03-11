@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_canapp/auth_controller.dart';
 import 'package:flutter_canapp/login_page.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,8 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
 
   Widget build(BuildContext context) {
+    var emailControler=TextEditingController();
+    var PassControler=TextEditingController();
     List iconimages=[
       "google.jpg","facebook.jpg","twitter.png"
     ];
@@ -67,6 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   SizedBox(height: 20,),
                     TextField(
+                      controller: emailControler,
                     decoration: InputDecoration(
                       hintText: "Email address",
                       focusedBorder: OutlineInputBorder(
@@ -93,6 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   )
                   ,SizedBox(height: 20,)
                   ,TextField(
+                    controller: PassControler,
                     obscureText: isHiddenPass,
                     decoration: InputDecoration(
                        hintText: "Password",
@@ -112,6 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   
                   ),SizedBox(height: 20,)
                   ,TextField(
+                    controller: PassControler,
                     obscureText: isHiddenPass,
                     decoration: InputDecoration(
                        hintText: "Confirm Password",
@@ -135,25 +141,30 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             SizedBox(height: 30,),
-            Container(
-              width: w*0.5,
-              height: h*0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                image: DecorationImage(
-                  image: AssetImage("images/Loginbtn.png"),
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                AuthController.instance.register(emailControler.text.trim(), PassControler.text.trim());
+              },
+              child: Container(
+                width: w*0.5,
+                height: h*0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  image: DecorationImage(
+                    image: AssetImage("images/Loginbtn.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text(
-                      "Sign in",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 255, 255)
+                child: Center(
+                  child: Text(
+                        "Sign in",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 255, 255, 255)
+                        ),
                       ),
-                    ),
+                ),
               ),
             ),
             SizedBox(height: w*0.05,),
