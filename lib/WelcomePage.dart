@@ -21,7 +21,7 @@ class WelcomePage extends StatelessWidget {
               height: h * 0.31,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage("images/Loadingcolour.png"),
+                image: AssetImage("images/Login.png"),
                 fit: BoxFit.cover,
               )),
               child: Column(

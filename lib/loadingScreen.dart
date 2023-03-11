@@ -10,92 +10,51 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  
+  @override
+   void initState() {
+    super.initState();
+    startLoading();
+  }
+
+  void startLoading() {
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const StartPage()),
+        (Route<dynamic> route) => false,
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    
-     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: w,
-              height: h * 0.31,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("images/Login.png"),
+
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/Loadingcolour.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.network(
+                'https://assets10.lottiefiles.com/packages/lf20_07PkRX.json',
+                width: w*0.8,
+                height: h*0.4,
                 fit: BoxFit.cover,
-              )),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: h * 0.20,
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 37,
-                    backgroundImage: AssetImage("images/icongoogle.jpg"),
-                  )
-                ],
               ),
-            ),
-            SizedBox(height: 30,),
-            Container(
-              width: w,
-              margin: const EdgeInsets.only(left: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-              Text(
-                "Welcome",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54
-                ),
-              ),
-                SizedBox(height: 20,),
-              Text(
-                "exampleuser@gmail.com",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 27, 147, 244)
-                ),
-              )
-                ],
-              ),
-            )
-            ,SizedBox(height: 200,),
-            Container(
-              width: w*0.5,
-              height: h*0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                image: DecorationImage(
-                  image: AssetImage("images/Loginbtn.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                      "Start game",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 255, 255)
-                      ),
-                    ),
-                    
-              ),
-            ),
-            SizedBox(height: w*0.05,)         
-          ],
+              SizedBox(height: h*0.05),
+              TipOfTheDay()
+            ],
+          ),
         ),
       ),
     );
- }
- 
+  }
 }

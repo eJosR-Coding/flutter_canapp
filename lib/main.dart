@@ -6,6 +6,7 @@ import 'package:flutter_canapp/loadingScreen.dart';
 import 'package:flutter_canapp/login_page.dart';
 import 'package:flutter_canapp/singup_page.dart';
 import "package:get/get.dart";
+
 void main(){
   runApp(const MyApp());
 }
