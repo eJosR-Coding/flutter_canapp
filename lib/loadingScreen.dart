@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_canapp/Evelyn/start_page.dart';
+import 'package:flutter_canapp/TipoftheDay.dart';
+import 'package:lottie/lottie.dart';
+
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});

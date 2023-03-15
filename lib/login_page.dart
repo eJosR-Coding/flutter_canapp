@@ -82,11 +82,13 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: isHiddenPass,
                     decoration: InputDecoration(
                       suffixIcon: InkWell(
-                        onTap: _togglePasswordView,
-                        child: Icon(
-                          Icons.visibility,
-                         ),
-                       ),
+                          onTap: _togglePasswordView,
+                          child: Icon(
+                            isHiddenPass
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                        ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color.fromARGB(255, 0, 129, 198)
@@ -159,11 +161,9 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-    void _togglePasswordView() {
+  void _togglePasswordView() {
     setState(() {
-    isHiddenPass = !isHiddenPass;
-  });
-  //...
+      isHiddenPass = !isHiddenPass;
+    });
   }
-  
 }

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_canapp/WelcomePage.dart';
-import 'package:flutter_canapp/auth_controller.dart';
 import 'package:flutter_canapp/loadingScreen.dart';
 import 'package:flutter_canapp/login_page.dart';
 import 'package:flutter_canapp/singup_page.dart';
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingScreen(),
+      home: LoginPage(),
     );
   }
 }
