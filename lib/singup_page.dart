@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_canapp/login_page.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'firebase_controller.dart';
 
@@ -14,13 +13,13 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-  String? _validateUsername(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Username is required';
-    }
-    return null;
+String? _validateUsername(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Username is required';
   }
-  
+  return null;
+}
+
 String? _validateEmail(String? value) {
   if (value == null || value.isEmpty) {
     return 'Email is required';
@@ -33,14 +32,16 @@ String? _validateEmail(String? value) {
   return null;
 }
 
+//Clase para registrar usuarios
 class _SignUpPageState extends State<SignUpPage> {
-  bool isHiddenPass1 = true; // state variable for first password field
-  bool isHiddenPass2 = true; // state variable for second password field
+  //bool isHiddenPass1 = true; // state variable for first password field
+  //bool isHiddenPass2 = true; // state variable for second password field
   TextEditingController emailControler = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController passControler = TextEditingController();
   TextEditingController _secondPasswordController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
 
   String? _validatePassword(String value) {
     if (value != _passwordController.text) {
@@ -51,6 +52,28 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _togglePasswordView1() {
     // callback for first password field
+    //Reemplazar usando la clase Rx
+    //ej: 
+    /* 
+    class PasswordController extends GetxController {
+  RxBool isHiddenPass1 = true.obs;
+  RxBool isHiddenPass2 = true.obs;
+
+  void togglePasswordView1() {
+    isHiddenPass1.value = !isHiddenPass1.value;
+  }
+
+  void togglePasswordView2() {
+    isHiddenPass2.value = !isHiddenPass2.value;
+  }
+}
+
+------------------
+despues cambiar la funcion _togglePasswordView1() con togglePasswordView1() 
+void togglePasswordView1() {
+  isHiddenPass1.value = !isHiddenPass1.value;
+}
+    */
     setState(() {
       isHiddenPass1 = !isHiddenPass1;
     });
@@ -62,7 +85,6 @@ class _SignUpPageState extends State<SignUpPage> {
       isHiddenPass2 = !isHiddenPass2;
     });
   }
-  
 
   List iconimages = ["google.jpg", "facebook.jpg", "twitter.png"];
   double w = 0;
@@ -141,6 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   TextField(
+                    controller: _usernameController,
                     decoration: InputDecoration(
                         hintText: "Username",
                         focusedBorder: OutlineInputBorder(
@@ -177,27 +200,32 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   TextField(
-                    controller: _secondPasswordController,
-                    obscureText:
-                        isHiddenPass2, // use the state variable for second password field
-                    decoration: InputDecoration(
-                        labelText: "Confirm Password",
-                        suffixIcon: InkWell(
-                          onTap:
-                              _togglePasswordView2, // use the callback for second password field
-                          child: Icon(
-                            isHiddenPass2
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                      controller: _secondPasswordController,
+                      obscureText:
+                          true, // use the state variable for second password field
+                      decoration: InputDecoration(
+                          labelText: "Confirm Password",
+                          suffixIcon: InkWell(
+                            onTap:
+                                _togglePasswordView2, // use the callback for second password field
+                            child: Icon(
+                              isHiddenPass2
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Color.fromARGB(255, 0, 129, 198),
-                        )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30))),
-                  ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                            color: Color.fromARGB(255, 0, 129, 198),
+                          )),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30))),
+                      validator: (value) {
+                        if (value != passControler.text) {
+                          return 'Las contraseñas no coiniden';
+                        }
+                        return null;
+                      },),
                   SizedBox(
                     height: 20,
                   ),
@@ -210,9 +238,19 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             GestureDetector(
               onTap: () async {
-                UserCredential userCredential =
-                    await FirebaseController.createUserWithEmailAndPassword(
-                        emailControler.text.trim(), passControler.text.trim());
+                if(_secondPasswordController.text == passControler.text{
+                  try{
+                    UserCredential userCredential = await authController.register( 
+                      emailController.text, passController.text
+                    );
+                    Get.ofAll(() => LoadingScreen());
+                  } catch(e){
+                    print(e);
+                  }
+                } else{
+                  Get.snackbar('Error', 'Contraseña no coincide', snackPosition : SnackPosition.BOTTOM,)
+                }
+                );
               },
               child: Container(
                 width: w * 0.5,
