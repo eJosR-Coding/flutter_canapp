@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_canapp/login_page.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'firebase_controller.dart';
 
@@ -13,6 +14,25 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
+  String? _validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Username is required';
+    }
+    return null;
+  }
+  
+String? _validateEmail(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Email is required';
+  }
+  final RegExp emailRegex =
+      RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  if (!emailRegex.hasMatch(value)) {
+    return 'Invalid email address. Please enter a valid email address.';
+  }
+  return null;
+}
+
 class _SignUpPageState extends State<SignUpPage> {
   bool isHiddenPass1 = true; // state variable for first password field
   bool isHiddenPass2 = true; // state variable for second password field
@@ -20,6 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passControler = TextEditingController();
   TextEditingController _secondPasswordController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
 
   String? _validatePassword(String value) {
     if (value != _passwordController.text) {
@@ -41,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
       isHiddenPass2 = !isHiddenPass2;
     });
   }
+  
 
   List iconimages = ["google.jpg", "facebook.jpg", "twitter.png"];
   double w = 0;
@@ -100,12 +122,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextField(
                     controller: emailControler,
                     decoration: InputDecoration(
-                        hintText: "Email address",
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 0, 129, 198))),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30))),
+                      hintText: "Email address",
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 0, 129, 198))),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                        ),
+                      ),
+                      errorText: _validateEmail(emailControler.text),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -181,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
             GestureDetector(
               onTap: () async {
                 UserCredential userCredential =
-                    await FirebaseController.registerUser(
+                    await FirebaseController.createUserWithEmailAndPassword(
                         emailControler.text.trim(), passControler.text.trim());
               },
               child: Container(

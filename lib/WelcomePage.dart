@@ -2,6 +2,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_canapp/Evelyn/role_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -12,86 +13,104 @@ class WelcomePage extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFA1A1A1),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               width: w,
-              height: h * 0.31,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("images/Login.png"),
-                fit: BoxFit.cover,
-              )),
+              margin: const EdgeInsets.only(top: 50),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: h * 0.20,
+                  Text(
+                    "Hola, listo para jugar?",
+                    style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54),
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 37,
-                    backgroundImage: AssetImage("images/icongoogle.jpg"),
-                  )
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "exampleuser@gmail.com",
+                    style: TextStyle(
+                        fontSize: 16, color: Color.fromARGB(255, 27, 147, 244)),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Center(
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          "images/doctora1.png",
+                          width: w * 0.8,
+                          height: h * 0.25,
+                        ),
+                        Positioned(
+                          left: w * 0.1,
+                          top: h * 0.15,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              "Hola! soy Rita y encantada de conocerte",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 30,),
-            Container(
-              width: w,
-              margin: const EdgeInsets.only(left: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-              Text(
-                "Welcome",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54
+            SizedBox(height: w * 0.05),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RolePage()),
+                );
+              },
+              child: Container(
+                width: w * 0.5,
+                height: h * 0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: Colors.black,
                 ),
-              ),
-                SizedBox(height: 20,),
-              Text(
-                "exampleuser@gmail.com",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 27, 147, 244)
-                ),
-              )
-                ],
-              ),
-            )
-            ,SizedBox(height: 200,),
-            Container(
-              width: w*0.5,
-              height: h*0.08,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                image: DecorationImage(
-                  image: AssetImage("images/Loginbtn.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                      "Start game",
-                      style: TextStyle(
+                child: const Center(
+                  child: Text(
+                    "Start game",
+                    style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 255, 255)
-                      ),
-                    ),
-                    
+                        color: Colors.white),
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: w*0.05,)         
+            SizedBox(height: w * 0.05)
           ],
         ),
       ),
     );
- }
- 
+  }
 }
