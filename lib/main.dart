@@ -7,12 +7,13 @@ import 'package:flutter_canapp/login_page.dart';
 import 'package:flutter_canapp/singup_page.dart';
 import "package:get/get.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase_options.dart';
 
 //AL LADO DE main() -> async
-void main(){
-  
+void main() async{
   //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   runApp(const MyApp());
 }
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WelcomePage(),
+      home: SignUpPage(),
     );
   }
 }

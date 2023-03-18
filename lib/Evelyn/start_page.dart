@@ -44,7 +44,7 @@ class StartPage extends StatelessWidget {
                         backgroundColor: Colors.black,
                         padding: EdgeInsets.symmetric(horizontal: 200, vertical: 25),
                       ),
-                      child: Text('Next'),),
+                      child: const Text('Next'),),
                     ],
                   ),
 

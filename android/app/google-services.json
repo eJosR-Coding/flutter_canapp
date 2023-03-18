@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "109312368767",
+    "firebase_url": "https://youcanapp-d8294-default-rtdb.firebaseio.com",
     "project_id": "youcanapp-d8294",
     "storage_bucket": "youcanapp-d8294.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "109312368767-g5mnseqhc7oajf6nco9akom47v1hnska.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "109312368767-laq028qik4eemn1h05318s5kal208fiq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterCanapp"
+              }
             }
           ]
         }

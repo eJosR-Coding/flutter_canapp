@@ -6,11 +6,14 @@ import 'package:get/get.dart';
 
 class FirebaseController extends GetxController{
   late FirebaseAuth _auth;
+FirebaseController() {
+    _auth = FirebaseAuth.instance;
+  }
 
   @override
   void onInit() {
     super.onInit();
-    _auth = FirebaseAuth.instance;
+      _auth = FirebaseAuth.instance;
   }
 
   Future<FirebaseApp> initializeFirebase() async {
